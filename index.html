@@ -671,7 +671,7 @@
     <div class="gform-wrap" id="gform-wrap">
       <!-- SWAP THIS src ONCE YOUR GOOGLE FORM IS READY -->
       <iframe id="gform-iframe"
-        src="REPLACE_WITH_GOOGLE_FORM_EMBED_URL"
+        src="https://docs.google.com/forms/d/e/1FAIpQLSdJqumA_ko0HNUJ_XOj6bqd2FNFb73EA87OzwyiFNMspX3zow/viewform?"
         title="Register interest form"
         loading="lazy"
         onload="iframeLoaded()"
@@ -758,8 +758,8 @@
     }
     // Redirect to Google Form pre-filled
     // Replace FORM_ID and ENTRY_ID below after setting up your Google Form
-    const FORM_BASE = 'https://docs.google.com/forms/d/e/REPLACE_FORM_ID/formResponse';
-    const ENTRY    = 'entry.REPLACE_ENTRY_ID'; // e.g. entry.123456789
+    const FORM_BASE = 'https://docs.google.com/forms/d/e/1FAIpQLSdJqumA_ko0HNUJ_XOj6bqd2FNFb73EA87OzwyiFNMspX3zow/formResponse';
+    const ENTRY    = 'entry.1937797634'; // e.g. entry.123456789
 
     const url = `${FORM_BASE}?${ENTRY}=${encodeURIComponent(email)}&submit=Submit`;
 
