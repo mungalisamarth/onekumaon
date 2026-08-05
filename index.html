@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>One Kumaon — Coming Soon</title>
-  <meta name="description" content="Seventeen private Himalayan villas. By invitation only. Coming soon to Kumaon, Uttarakhand." />
+  <meta name="description" content="Twelve private Himalayan villas. By invitation only. Coming soon to Kumaon, Uttarakhand." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant+SC:wght@300;400&display=swap" rel="stylesheet" />
@@ -22,25 +22,36 @@
       --sc:      'Cormorant SC', Georgia, serif;
     }
 
-    html { scroll-behavior: smooth; }
+    /* Smooth scroll only on desktop — iOS momentum scroll handles itself */
+    @media (hover: hover) {
+      html { scroll-behavior: smooth; }
+    }
 
     body {
       background: var(--charcoal);
       color: var(--cream);
       font-family: var(--serif);
       overflow-x: hidden;
+      overscroll-behavior-y: none;
     }
 
     /* ─── SECTIONS ─────────────────────────────────────────────── */
     .panel {
       position: relative;
       width: 100%;
-      height: 100vh;
-      min-height: 600px;
+      /* 100svh = small viewport height (excludes mobile browser chrome) */
+      height: 100svh;
+      height: 100vh; /* fallback for older browsers */
+      min-height: 560px;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
+    }
+
+    /* iOS Safari: use fill-available so chrome doesn't clip panels */
+    @supports (-webkit-touch-callout: none) {
+      .panel { height: -webkit-fill-available; min-height: 560px; }
     }
 
     .panel__bg {
@@ -51,6 +62,7 @@
       transform: scale(1.05);
       transition: transform 8s ease-out;
       filter: brightness(0.62);
+      will-change: transform;
     }
 
     .panel.visible .panel__bg { transform: scale(1); }
@@ -334,6 +346,12 @@
       letter-spacing: 0.1em;
     }
 
+    @media (max-width: 640px) {
+      .form-row { flex-direction: column; }
+      .form-row input[type="email"] { border-right: 1px solid rgba(184,160,122,0.4); border-bottom: none; }
+      .form-row button { padding: 0.85rem; }
+    }
+
     /* ─── FLOATING BUTTON ───────────────────────────────────────── */
     .float-btn {
       position: fixed;
@@ -524,9 +542,19 @@
       nav { padding: 1.2rem 1.4rem; }
       nav img { height: 22px; }
       .float-btn { bottom: 1.4rem; right: 1.2rem; font-size: 0.55rem; padding: 0.75rem 1.1rem; }
-      .form-row { flex-direction: column; }
-      .form-row input[type="email"] { border-right: 1px solid rgba(184,160,122,0.4); border-bottom: none; }
-      .form-row button { padding: 0.85rem; }
+
+      /* Shorten animation delays on mobile so content appears immediately on scroll */
+      .panel-label    { transition-delay: 0s; }
+      .panel-headline { transition-delay: 0.12s; }
+      .panel-divider  { transition-delay: 0.2s; }
+      .panel-body     { transition-delay: 0.28s; }
+      .cta-tag        { transition-delay: 0s; }
+      .cta-headline   { transition-delay: 0.12s; }
+      .cta-sub        { transition-delay: 0.25s; }
+      .cta-btn        { transition-delay: 0.38s; }
+
+      /* Reduce zoom-in on mobile: less GPU stress */
+      .panel__bg { transform: scale(1.02); }
     }
   </style>
 </head>
@@ -534,15 +562,15 @@
 
 <!-- NAV -->
 <nav>
-  <img src="website-images/one-kumaon-logo.png" alt="One Kumaon" />
+  <img src="website-images/optimized/one-kumaon-logo.png" alt="One Kumaon" />
   <span>Kumaon &ensp;·&ensp; Uttarakhand</span>
 </nav>
 
 <!-- ═══ PANEL 1 — HERO (Himalayan panorama) ════════════════════ -->
 <section class="panel" id="hero">
-  <div class="panel__bg" style="background-image: url('website-images/Sunset_at_Himalayas.jpg');"></div>
+  <div class="panel__bg" style="background-image: url('website-images/optimized/Sunset_at_Himalayas.jpg');"></div>
   <div class="panel__content">
-    <img class="hero-logo" src="website-images/one-kumaon-logo.png" alt="One Kumaon" />
+    <img class="hero-logo" src="website-images/optimized/one-kumaon-logo.png" alt="One Kumaon" />
     <p class="hero-eyebrow">Kumaon Himalayas &ensp;·&ensp; Private Villas</p>
     <h1 class="hero-headline">
       Legacy<br />has an address.
@@ -557,22 +585,22 @@
 
 <!-- ═══ PANEL 2 — Exterior ═════════════════════════════════════ -->
 <section class="panel" id="panel-2">
-  <div class="panel__bg" style="background-image: url('website-images/villa-exterior.jpg');"></div>
+  <div class="panel__bg" style="background-image: url('website-images/optimized/villa-exterior.jpg');"></div>
   <div class="panel__content">
     <p class="panel-label">The Estate</p>
     <h2 class="panel-headline">
-      Seventeen villas.<br />One ridge. No compromise.
+      Twelve villas.<br />One ridge. No compromise.
     </h2>
     <div class="panel-divider"></div>
     <p class="panel-body">
-      Set at 6,800 feet, each residence commands an uninterrupted 180° view of the Himalayan range — yours alone, from the first light of morning.
+      Set at almost 7,000 feet, each residence commands an uninterrupted 180° view of the Himalayan range — yours alone, from the first light of morning.
     </p>
   </div>
 </section>
 
 <!-- ═══ PANEL 3 — Exterior angle ══════════════════════════════ -->
 <section class="panel" id="panel-3">
-  <div class="panel__bg" style="background-image: url('website-images/villa-exterior-another-angle.jpg');"></div>
+  <div class="panel__bg" style="background-image: url('website-images/optimized/villa-exterior-another-angle.jpg');"></div>
   <div class="panel__content">
     <p class="panel-label">The Architecture</p>
     <h2 class="panel-headline">
@@ -587,7 +615,7 @@
 
 <!-- ═══ PANEL 4 — Interior ════════════════════════════════════ -->
 <section class="panel" id="panel-4">
-  <div class="panel__bg" style="background-image: url('website-images/villa-interior-living-room.jpg');"></div>
+  <div class="panel__bg" style="background-image: url('website-images/optimized/villa-interior-living-room.jpg');"></div>
   <div class="panel__content">
     <p class="panel-label">Inside</p>
     <h2 class="panel-headline">
@@ -595,14 +623,14 @@
     </h2>
     <div class="panel-divider"></div>
     <p class="panel-body">
-      Three and four bedroom residences — each with private garages, front-yard firepits, electric fireplaces, and a living room that frames the Nanda Devi range like a painting that changes every hour.
+      Three and four bedroom residences — each with private garages, front-yard firepits, electric fireplaces, and a living room that frames the Himalayas in a 180° panoramic view that changes with every hour of light.
     </p>
   </div>
 </section>
 
 <!-- ═══ PANEL 5 — Collage ══════════════════════════════════════ -->
 <section class="panel" id="panel-5">
-  <div class="panel__bg" style="background-image: url('website-images/collage.jpg');"></div>
+  <div class="panel__bg" style="background-image: url('website-images/optimized/collage.jpg');"></div>
   <div class="panel__content">
     <p class="panel-label">The Life</p>
     <h2 class="panel-headline">
@@ -617,18 +645,16 @@
 
 <!-- ═══ PANEL 6 — CTA ══════════════════════════════════════════ -->
 <section class="panel" id="panel-cta" style="height: auto; min-height: 100vh; padding: 8rem 1.5rem;">
-  <div class="panel__bg" style="background-image: url('website-images/Sunset_at_Himalayas.jpg'); background-position: 50% 70%;"></div>
+  <div class="panel__bg" style="background-image: url('website-images/optimized/Sunset_at_Himalayas.jpg'); background-position: 50% 70%;"></div>
   <div class="panel__content" style="max-width: 640px;">
     <div class="cta-tag">By Invitation Only</div>
     <h2 class="cta-headline">
       One Kumaon.<br />Coming soon.
     </h2>
     <p class="cta-sub">
-      Seventeen residences, priced from ₹4.5 Crore.<br />
+      Twelve residences, starting ₹4 Cr+.<br />
       Expressions of interest are now open — discreetly.
     </p>
-
-    <!-- Inline email form -->
     <div class="form-row" id="inline-form-row">
       <input type="email" id="inline-email" placeholder="Your email address" autocomplete="email" />
       <button onclick="submitInlineForm()">Request Access</button>
@@ -642,7 +668,7 @@
 
 <!-- ─── FOOTER ─────────────────────────────────────────────────── -->
 <footer>
-  <img src="website-images/one-kumaon-logo.png" alt="One Kumaon" /><br />
+  <img src="website-images/optimized/one-kumaon-logo.png" alt="One Kumaon" /><br />
   <p>
     onekumaon.com &ensp;·&ensp; Dhanachuli, Almora, Uttarakhand<br />
     &copy; 2026 One Kumaon. All rights reserved.
@@ -669,9 +695,8 @@
          See setup guide in GOOGLE-FORM-SETUP.md
     ──────────────────────────────────────────────────────────── -->
     <div class="gform-wrap" id="gform-wrap">
-      <!-- SWAP THIS src ONCE YOUR GOOGLE FORM IS READY -->
       <iframe id="gform-iframe"
-        src="https://docs.google.com/forms/d/e/1FAIpQLSdJqumA_ko0HNUJ_XOj6bqd2FNFb73EA87OzwyiFNMspX3zow/viewform?"
+        src="https://docs.google.com/forms/d/e/1FAIpQLSdJqumA_ko0HNUJ_XOj6bqd2FNFb73EA87OzwyiFNMspX3zow/viewform?embedded=true"
         title="Register interest form"
         loading="lazy"
         onload="iframeLoaded()"
@@ -696,17 +721,24 @@
   // ─── INTERSECTION OBSERVER ──────────────────────────────────
   const panels = document.querySelectorAll('.panel');
 
+  // Lower threshold on mobile (panels scroll faster, less of them is visible
+  // at any moment because of browser chrome eating into 100vh).
+  const isMobile = window.matchMedia('(max-width: 640px)').matches;
+
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
         e.target.classList.add('visible');
       }
     });
-  }, { threshold: 0.18 });
+  }, {
+    threshold: isMobile ? 0.05 : 0.15,
+    rootMargin: isMobile ? '0px 0px -5% 0px' : '0px 0px -10% 0px'
+  });
 
   panels.forEach(p => io.observe(p));
 
-  // Trigger hero immediately
+  // Trigger hero immediately on load
   document.getElementById('hero').classList.add('visible');
 
   // ─── MODAL ──────────────────────────────────────────────────
@@ -740,29 +772,17 @@
     document.getElementById('modal-fallback').style.display = 'flex';
   }
 
-  // Check if iframe src is placeholder — show fallback immediately
-  window.addEventListener('DOMContentLoaded', () => {
-    const iframe = document.getElementById('gform-iframe');
-    if (iframe.src.includes('REPLACE_WITH')) {
-      document.getElementById('gform-wrap').style.display = 'none';
-      document.getElementById('modal-fallback').style.display = 'flex';
-    }
-  });
 
   // ─── INLINE FORM ────────────────────────────────────────────
+  const FORM_BASE = 'https://docs.google.com/forms/d/e/1FAIpQLSdJqumA_ko0HNUJ_XOj6bqd2FNFb73EA87OzwyiFNMspX3zow/formResponse';
+  const ENTRY     = 'entry.1937797634';
+
   function submitInlineForm() {
     const email = document.getElementById('inline-email').value.trim();
     if (!email || !email.includes('@')) {
       document.getElementById('inline-email').focus();
       return;
     }
-    // Redirect to Google Form pre-filled
-    // Replace FORM_ID and ENTRY_ID below after setting up your Google Form
-    const FORM_BASE = 'https://docs.google.com/forms/d/e/1FAIpQLSdJqumA_ko0HNUJ_XOj6bqd2FNFb73EA87OzwyiFNMspX3zow/formResponse';
-    const ENTRY    = 'entry.1937797634'; // e.g. entry.123456789
-
-    const url = `${FORM_BASE}?${ENTRY}=${encodeURIComponent(email)}&submit=Submit`;
-
     // Submit silently via hidden iframe
     const f = document.createElement('iframe');
     f.name = 'hidden_submit';
@@ -782,14 +802,12 @@
     document.body.appendChild(form);
     form.submit();
 
-    // Show success
     setTimeout(() => {
       document.getElementById('inline-form-row').style.display = 'none';
-      document.getElementById('inline-success').style.display = 'block';
+      document.getElementById('inline-success').style.display  = 'block';
     }, 600);
   }
 
-  // Allow Enter key on inline input
   document.getElementById('inline-email').addEventListener('keydown', e => {
     if (e.key === 'Enter') submitInlineForm();
   });
