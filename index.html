@@ -27,31 +27,34 @@
       html { scroll-behavior: smooth; }
     }
 
+    html {
+      /* Enables momentum (inertia) scrolling on older iOS/Chrome */
+      -webkit-overflow-scrolling: touch;
+    }
+
     body {
       background: var(--charcoal);
       color: var(--cream);
       font-family: var(--serif);
       overflow-x: hidden;
-      overscroll-behavior-y: none;
+      /* Do NOT set overscroll-behavior-y: none — it blocks iOS scroll momentum */
     }
 
     /* ─── SECTIONS ─────────────────────────────────────────────── */
     .panel {
       position: relative;
       width: 100%;
-      /* 100svh = small viewport height (excludes mobile browser chrome) */
-      height: 100svh;
-      height: 100vh; /* fallback for older browsers */
+      /* dvh = dynamic viewport height: resizes as phone browser chrome shows/hides */
+      height: 100dvh;
+      height: 100vh; /* fallback for browsers that don't support dvh */
       min-height: 560px;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
-    }
-
-    /* iOS Safari: use fill-available so chrome doesn't clip panels */
-    @supports (-webkit-touch-callout: none) {
-      .panel { height: -webkit-fill-available; min-height: 560px; }
+      /* clip-path instead of overflow:hidden — clips the scaled bg visually
+         WITHOUT creating a scroll container, so iOS touch events pass through */
+      clip-path: inset(0);
+      touch-action: pan-y; /* explicitly allow vertical scroll on touch devices */
     }
 
     .panel__bg {
