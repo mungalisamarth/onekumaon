@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>One Kumaon — Coming Soon</title>
   <meta name="description" content="Twelve private Himalayan villas. By invitation only. Coming soon to Kumaon, Uttarakhand." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -28,7 +28,6 @@
     }
 
     html {
-      overflow-x: hidden; /* belt-and-suspenders horizontal lock */
       -webkit-overflow-scrolling: touch;
     }
 
@@ -37,7 +36,6 @@
       color: var(--cream);
       font-family: var(--serif);
       overflow-x: hidden;
-      max-width: 100vw;
     }
 
     /* ─── SECTIONS ─────────────────────────────────────────────── */
@@ -50,11 +48,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      /* overflow: clip clips content WITHOUT creating a scroll container,
-         so iOS touch-scroll events pass through to the page.
-         Falls back to overflow: hidden for older browsers. */
-      overflow: hidden;
-      overflow: clip;
+      /* No overflow property — bg uses position-shift animation (no overflow) */
       touch-action: pan-y;
     }
 
@@ -62,11 +56,11 @@
       position: absolute;
       inset: 0;
       background-size: cover;
-      background-position: center;
-      transform: scale(1.05);
-      transition: transform 8s ease-out;
-      filter: brightness(0.78); /* default: hero */
-      will-change: transform;
+      /* Subtle upward drift on reveal — cinematic effect with zero overflow */
+      background-position: center 56%;
+      transition: background-position 9s ease-out;
+      filter: brightness(0.78);
+      will-change: background-position;
     }
 
     /* Middle render panels — much brighter so details read clearly */
@@ -75,7 +69,7 @@
     #panel-4 .panel__bg,
     #panel-5 .panel__bg { filter: brightness(0.94); }
 
-    .panel.visible .panel__bg { transform: scale(1); }
+    .panel.visible .panel__bg { background-position: center 50%; }
 
     /* overlay gradient — default (hero + CTA) */
     .panel__bg::after {
@@ -112,7 +106,7 @@
     }
 
     /* ─── HERO ──────────────────────────────────────────────────── */
-    #hero { height: 100vh; }
+    #hero { height: 100dvh; height: 100vh; }
 
     .hero-logo {
       width: 220px;
@@ -742,32 +736,30 @@
 
 <script>
   // ─── ALWAYS START AT TOP ─────────────────────────────────────
-  // Prevents browser scroll-restoration from opening mid-page on return visits
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
   window.scrollTo(0, 0);
 
   // ─── INTERSECTION OBSERVER ──────────────────────────────────
-  const panels = document.querySelectorAll('.panel');
+  // Wait for full page load + one animation frame before observing,
+  // so layout is stable and first-scroll works immediately on iOS/Android.
+  window.addEventListener('load', function () {
+    requestAnimationFrame(function () {
+      const panels = document.querySelectorAll('.panel');
+      const isMobile = window.matchMedia('(max-width: 640px)').matches;
 
-  // Lower threshold on mobile (panels scroll faster, less of them is visible
-  // at any moment because of browser chrome eating into 100vh).
-  const isMobile = window.matchMedia('(max-width: 640px)').matches;
+      const io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) e.target.classList.add('visible');
+        });
+      }, {
+        threshold: isMobile ? 0.04 : 0.12,
+        rootMargin: '0px'
+      });
 
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-      }
+      panels.forEach(function (p) { io.observe(p); });
+      document.getElementById('hero').classList.add('visible');
     });
-  }, {
-    threshold: isMobile ? 0.05 : 0.15,
-    rootMargin: isMobile ? '0px 0px -5% 0px' : '0px 0px -10% 0px'
   });
-
-  panels.forEach(p => io.observe(p));
-
-  // Trigger hero immediately on load
-  document.getElementById('hero').classList.add('visible');
 
   // ─── MODAL ──────────────────────────────────────────────────
   function openModal() {
@@ -811,12 +803,15 @@
       document.getElementById('inline-email').focus();
       return;
     }
-    // URLSearchParams sends as application/x-www-form-urlencoded —
-    // the exact format Google Forms expects. no-cors means we can't
-    // read the response but the data lands in the sheet.
-    const body = new URLSearchParams();
-    body.append(ENTRY, email);
-    fetch(FORM_BASE, { method: 'POST', mode: 'no-cors', body });
+    // Google Forms requires fvv=1 and pageHistory=0 for single-page forms.
+    // Content-Type: application/x-www-form-urlencoded is a CORS-safe header.
+    const payload = `${encodeURIComponent(ENTRY)}=${encodeURIComponent(email)}&fvv=1&pageHistory=0`;
+    fetch(FORM_BASE, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: payload
+    });
 
     document.getElementById('inline-form-row').style.display = 'none';
     document.getElementById('inline-success').style.display  = 'block';
