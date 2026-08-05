@@ -4,7 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>One Kumaon — Coming Soon</title>
-  <meta name="description" content="Twelve private Himalayan villas. By invitation only. Coming soon to Kumaon, Uttarakhand." />
+  <meta name="description" content="By invitation only. Twelve private villas at almost 7,000 feet in the Kumaon Himalayas. Coming soon." />
+
+  <!-- ─── Open Graph (WhatsApp / iMessage / social previews) ─── -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://onekumaon.com/" />
+  <meta property="og:title"       content="One Kumaon — By Invitation Only" />
+  <meta property="og:description" content="Twelve private Himalayan villas at almost 7,000 feet. A permanent sanctuary, not a retreat. Coming soon." />
+  <meta property="og:image"       content="https://onekumaon.com/website-images/optimized/Sunset_at_Himalayas.jpg" />
+  <meta property="og:image:width"  content="1920" />
+  <meta property="og:image:height" content="1126" />
+  <meta property="og:site_name"   content="One Kumaon" />
+  <!-- Twitter / X card (also used by WhatsApp as fallback) -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="One Kumaon — By Invitation Only" />
+  <meta name="twitter:description" content="Twelve private Himalayan villas at almost 7,000 feet. A permanent sanctuary, not a retreat. Coming soon." />
+  <meta name="twitter:image"       content="https://onekumaon.com/website-images/optimized/Sunset_at_Himalayas.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant+SC:wght@300;400&display=swap" rel="stylesheet" />
@@ -297,77 +312,26 @@
 
     #panel-cta.visible .cta-sub { opacity: 1; }
 
-    /* inline form */
-    .form-row {
-      display: flex;
-      gap: 0;
-      max-width: 460px;
-      margin: 0 auto 1.2rem;
-      opacity: 0;
-      transform: translateY(14px);
-      transition: opacity 0.9s ease 0.7s, transform 0.9s ease 0.7s;
-    }
-
-    #panel-cta.visible .form-row { opacity: 1; transform: none; }
-
-    .form-row input[type="email"] {
-      flex: 1;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(184,160,122,0.4);
-      border-right: none;
-      color: var(--cream);
-      font-family: var(--serif);
-      font-size: 0.85rem;
-      padding: 0.9rem 1.2rem;
-      outline: none;
-      transition: border-color 0.3s;
-    }
-
-    .form-row input[type="email"]::placeholder { color: rgba(245,240,232,0.4); }
-    .form-row input[type="email"]:focus { border-color: var(--gold); }
-
-    .form-row button {
+    .cta-btn {
+      display: inline-block;
+      font-family: var(--sc);
+      font-size: 0.62rem;
+      letter-spacing: 0.35em;
+      color: var(--charcoal);
       background: var(--gold);
       border: 1px solid var(--gold);
-      color: var(--charcoal);
-      font-family: var(--sc);
-      font-size: 0.6rem;
-      letter-spacing: 0.3em;
-      padding: 0.9rem 1.6rem;
+      padding: 1rem 2.4rem;
+      text-decoration: none;
       cursor: pointer;
-      transition: background 0.3s, color 0.3s;
-      white-space: nowrap;
-    }
-
-    .form-row button:hover {
-      background: transparent;
-      color: var(--gold);
-    }
-
-    .form-note {
-      font-family: var(--sc);
-      font-size: 0.55rem;
-      letter-spacing: 0.25em;
-      color: rgba(245,240,232,0.35);
       opacity: 0;
-      transition: opacity 0.9s ease 0.85s;
+      transform: translateY(14px);
+      transition: opacity 0.9s ease 0.7s, transform 0.9s ease 0.7s,
+                  background 0.3s, color 0.3s;
     }
 
-    #panel-cta.visible .form-note { opacity: 1; }
+    .cta-btn:hover { background: transparent; color: var(--gold); }
 
-    /* success state */
-    .form-success {
-      display: none;
-      font-size: 0.9rem;
-      color: var(--gold-lt);
-      letter-spacing: 0.1em;
-    }
-
-    @media (max-width: 640px) {
-      .form-row { flex-direction: column; }
-      .form-row input[type="email"] { border-right: 1px solid rgba(184,160,122,0.4); border-bottom: none; }
-      .form-row button { padding: 0.85rem; }
-    }
+    #panel-cta.visible .cta-btn { opacity: 1; transform: none; }
 
     /* ─── FLOATING BUTTON ───────────────────────────────────────── */
     .float-btn {
@@ -672,14 +636,9 @@
       Twelve residences, starting ₹4 Cr+.<br />
       Expressions of interest are now open — discreetly.
     </p>
-    <div class="form-row" id="inline-form-row">
-      <input type="email" id="inline-email" placeholder="Your email address" autocomplete="email" />
-      <button onclick="submitInlineForm()">Request Access</button>
-    </div>
-    <div class="form-success" id="inline-success">
-      Thank you. We will be in touch.
-    </div>
-    <p class="form-note">Your details remain strictly private. No marketing lists.</p>
+    <a class="cta-btn"
+       href="https://docs.google.com/forms/d/e/1FAIpQLSdJqumA_ko0HNUJ_XOj6bqd2FNFb73EA87OzwyiFNMspX3zow/viewform"
+       target="_blank" rel="noopener">Request Access</a>
   </div>
 </section>
 
@@ -792,34 +751,6 @@
     document.getElementById('modal-fallback').style.display = 'flex';
   }
 
-
-  // ─── INLINE FORM ────────────────────────────────────────────
-  const FORM_BASE = 'https://docs.google.com/forms/d/e/1FAIpQLSdJqumA_ko0HNUJ_XOj6bqd2FNFb73EA87OzwyiFNMspX3zow/formResponse';
-  const ENTRY     = 'entry.1937797634';
-
-  function submitInlineForm() {
-    const email = document.getElementById('inline-email').value.trim();
-    if (!email || !email.includes('@')) {
-      document.getElementById('inline-email').focus();
-      return;
-    }
-    // Google Forms requires fvv=1 and pageHistory=0 for single-page forms.
-    // Content-Type: application/x-www-form-urlencoded is a CORS-safe header.
-    const payload = `${encodeURIComponent(ENTRY)}=${encodeURIComponent(email)}&fvv=1&pageHistory=0`;
-    fetch(FORM_BASE, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: payload
-    });
-
-    document.getElementById('inline-form-row').style.display = 'none';
-    document.getElementById('inline-success').style.display  = 'block';
-  }
-
-  document.getElementById('inline-email').addEventListener('keydown', e => {
-    if (e.key === 'Enter') submitInlineForm();
-  });
 
   // ─── FALLBACK FORM ──────────────────────────────────────────
   function submitFallback() {
