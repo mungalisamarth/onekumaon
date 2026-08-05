@@ -786,29 +786,14 @@
       document.getElementById('inline-email').focus();
       return;
     }
-    // Submit silently via hidden iframe
-    const f = document.createElement('iframe');
-    f.name = 'hidden_submit';
-    f.style.display = 'none';
-    document.body.appendChild(f);
+    // fetch with no-cors — browser sends the POST, Google Forms records it.
+    // We can't read the response (opaque request) but the data lands in the sheet.
+    const formData = new FormData();
+    formData.append(ENTRY, email);
+    fetch(FORM_BASE, { method: 'POST', mode: 'no-cors', body: formData });
 
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = FORM_BASE;
-    form.target = 'hidden_submit';
-
-    const input = document.createElement('input');
-    input.type  = 'hidden';
-    input.name  = ENTRY;
-    input.value = email;
-    form.appendChild(input);
-    document.body.appendChild(form);
-    form.submit();
-
-    setTimeout(() => {
-      document.getElementById('inline-form-row').style.display = 'none';
-      document.getElementById('inline-success').style.display  = 'block';
-    }, 600);
+    document.getElementById('inline-form-row').style.display = 'none';
+    document.getElementById('inline-success').style.display  = 'block';
   }
 
   document.getElementById('inline-email').addEventListener('keydown', e => {
