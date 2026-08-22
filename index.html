@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>One Kumaon — Coming Soon</title>
-  <meta name="description" content="By invitation only. Twelve private villas at almost 7,000 feet in the Kumaon Himalayas. Coming soon." />
+  <meta name="description" content="A signature address in the Himalayas. Ten private villas. Unparalleled views and location. Coming soon." />
 
   <!-- ─── Open Graph (WhatsApp / iMessage / social previews) ─── -->
   <meta property="og:type"        content="website" />
   <meta property="og:url"         content="https://onekumaon.com/" />
   <meta property="og:title"       content="One Kumaon — By Invitation Only" />
-  <meta property="og:description" content="Twelve private Himalayan villas at almost 7,000 feet. A permanent sanctuary, not a retreat. Coming soon." />
+  <meta property="og:description" content="A signature address in the Himalayas. Ten private villas. Unparalleled views and location. Coming soon." />
   <meta property="og:image"       content="https://onekumaon.com/website-images/optimized/Sunset_at_Himalayas.jpg" />
   <meta property="og:image:width"  content="1920" />
   <meta property="og:image:height" content="1126" />
@@ -18,7 +18,7 @@
   <!-- Twitter / X card (also used by WhatsApp as fallback) -->
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content="One Kumaon — By Invitation Only" />
-  <meta name="twitter:description" content="Twelve private Himalayan villas at almost 7,000 feet. A permanent sanctuary, not a retreat. Coming soon." />
+  <meta name="twitter:description" content="A signature address in the Himalayas. Ten private villas. Unparalleled views and location. Coming soon." />
   <meta name="twitter:image"       content="https://onekumaon.com/website-images/optimized/Sunset_at_Himalayas.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -127,7 +127,8 @@
       width: 220px;
       opacity: 0;
       transform: translateY(-18px);
-      transition: opacity 1.2s ease 0.2s, transform 1.2s ease 0.2s;
+      /* Logo appears after the headline has had time to land */
+      transition: opacity 1.4s ease 2.6s, transform 1.4s ease 2.6s;
       margin-bottom: 4rem;
       filter: brightness(0) invert(1);
     }
@@ -139,7 +140,7 @@
       color: var(--gold-lt);
       opacity: 0;
       transform: translateY(14px);
-      transition: opacity 1s ease 0.5s, transform 1s ease 0.5s;
+      transition: opacity 1s ease 3.2s, transform 1s ease 3.2s;
       text-transform: uppercase;
       margin-bottom: 1.6rem;
       text-shadow: 0 1px 8px rgba(0,0,0,0.5);
@@ -153,7 +154,8 @@
       color: var(--cream);
       opacity: 0;
       transform: translateY(20px);
-      transition: opacity 1.2s ease 0.7s, transform 1.2s ease 0.7s;
+      /* Headline is FIRST — appears immediately */
+      transition: opacity 1.4s ease 0.3s, transform 1.4s ease 0.3s;
       margin-bottom: 1.8rem;
       text-shadow: 0 2px 24px rgba(0,0,0,0.55), 0 1px 4px rgba(0,0,0,0.35);
     }
@@ -165,7 +167,7 @@
       color: var(--gold);
       opacity: 0;
       transform: translateY(14px);
-      transition: opacity 1s ease 1s, transform 1s ease 1s;
+      transition: opacity 1s ease 3.5s, transform 1s ease 3.5s;
       text-transform: uppercase;
       text-shadow: 0 1px 8px rgba(0,0,0,0.5);
     }
@@ -187,7 +189,7 @@
       align-items: center;
       gap: 8px;
       opacity: 0;
-      transition: opacity 1.5s ease 2s;
+      transition: opacity 1.5s ease 4.5s;
     }
 
     #hero.visible .scroll-cue { opacity: 0.5; }
@@ -583,7 +585,7 @@
     <p class="panel-label">The Estate</p>
     <div class="panel-divider"></div>
     <h2 class="panel-headline">
-      Twelve villas.<br />One ridge. No compromise.
+      Ten villas.<br />One ridge. No compromise.
     </h2>
     <p class="panel-body">
       Set at almost 7,000 feet, each residence commands an uninterrupted 180° view of the Himalayan range — yours alone, from the first light of morning.
@@ -645,7 +647,7 @@
       One Kumaon.<br />Coming soon.
     </h2>
     <p class="cta-sub">
-      Twelve residences, starting ₹4 Cr+.<br />
+      Ten residences, starting ₹4 Cr+.<br />
       Expressions of interest are now open — discreetly.
     </p>
     <a class="cta-btn"
